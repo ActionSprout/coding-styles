@@ -118,7 +118,7 @@ module.exports = {
     "no-useless-call": 1, //disallow unnecessary .call() and .apply()
     "no-useless-concat": 1, //disallow unnecessary concatenation of literals or template literals
     "no-void": 0, //disallow use of the void operator
-    "no-warning-comments": [1, { "terms": ["todo", "fixme"], "location": "start" }], //disallow usage of configurable warning terms in comments e.g. TODO or FIXME
+    "no-warning-comments": [1, { "terms": ["fixme"], "location": "start" }], //disallow usage of configurable warning terms in comments e.g. FIXME
     "no-with": 1, //disallow use of the with statement
     "radix": 0, // require use of the second argument for parseInt()
     "vars-on-top": 1, //require declaration of all vars at the top of their containing scope
