@@ -25,6 +25,7 @@ module.exports = {
     "jsx": true
   },
   "env": {
+    "es6": true,
     "browser": true,
     "node": true,
     "mocha": true,
