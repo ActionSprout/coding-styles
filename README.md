@@ -1,7 +1,8 @@
-This repository contains my coding style guidelines.
+# ActionSprout style guides
+
+This repository was originally forked from https://github.com/elierotenberg/coding-styles, which is what the es6 and postgres styles are based on.
+
 
 - [ES6 coding guidelines](es6.md)
 - [PostgreSQL coding guidelines](postgres.md)
 
-An [`.eslintrc`](.eslintrc) file with pre-configured rules is available if you wish to use [ESLint](http://eslint.org/).
-It currently works under `1.10.1` version.
