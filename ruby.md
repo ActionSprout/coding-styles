@@ -521,27 +521,10 @@ style guide.
   ```
 
 * <a name="consistent-multi-line-chains"></a>
-    Adopt a consistent multi-line method chaining style. There are two popular
-    styles in the Ruby community, both of which are considered
-    good&mdash;leading `.` (Option A) and trailing `.` (Option B).
+  When continuing a chained method invocation on another line,
+  include the `.` on the first line to indicate that the
+  expression continues.
 <sup>[[link](#consistent-multi-line-chains)]</sup>
-
-  * **(Option A)** When continuing a chained method invocation on
-    another line keep the `.` on the second line.
-
-    ```ruby
-    # bad - need to consult first line to understand second line
-    one.two.three.
-      four
-
-    # good - it's immediately clear what's going on the second line
-    one.two.three
-      .four
-    ```
-
-  * **(Option B)** When continuing a chained method invocation on another line,
-    include the `.` on the first line to indicate that the
-    expression continues.
 
     ```ruby
     # bad - need to read ahead to the second line to know that the chain continues
@@ -553,7 +536,7 @@ style guide.
       four
     ```
 
-  A discussion on the merits of both alternative styles can be found
+  A discussion on the merits of alternative styles can be found
   [here](https://github.com/bbatsov/ruby-style-guide/pull/176).
 
 * <a name="no-double-indent"></a>
