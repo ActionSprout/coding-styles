@@ -63,19 +63,6 @@ You can generate a PDF or an HTML copy of this guide using
 [RuboCop][] is a code analyzer, based on this
 style guide.
 
-Translations of the guide are available in the following languages:
-
-* [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
-* [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [French](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
-* [German](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
-* [Japanese](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
-* [Korean](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
-* [Portuguese (pt-BR)](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
-* [Russian](https://github.com/arbox/ruby-style-guide/blob/master/README-ruRU.md)
-* [Spanish](https://github.com/alemohamad/ruby-style-guide/blob/master/README-esLA.md)
-* [Vietnamese](https://github.com/CQBinh/ruby-style-guide/blob/master/README-viVN.md)
-
 ## Table of Contents
 
 * [Source Code Layout](#source-code-layout)
@@ -245,18 +232,9 @@ Translations of the guide are available in the following languages:
   `{` and `}` deserve a bit of clarification, since they are used
   for block and hash literals, as well as string interpolation.
 
-  For hash literals two styles are considered acceptable.
-  The first variant is slightly more readable (and arguably more
-  popular in the Ruby community in general). The second variant has
-  the advantage of adding visual difference between block and hash
-  literals. Whichever one you pick&mdash;apply it consistently.
-
   ```ruby
   # good - space after { and before }
   { one: 1, two: 2 }
-
-  # good - no space after { and before }
-  {one: 1, two: 2}
   ```
 
   With interpolated expressions, there should be no padded-spacing inside the braces.
@@ -608,13 +586,13 @@ Translations of the guide are available in the following languages:
                    body: source.text)
   end
 
-  # good (normal indent)
+  # best (normal indent)
   def send_mail(source)
     Mailer.deliver(
       to: 'bob@example.com',
       from: 'us@example.com',
       subject: 'Important message',
-      body: source.text
+      body: source.text,
     )
   end
   ```
@@ -628,17 +606,11 @@ Translations of the guide are available in the following languages:
   menu_item = ['Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
     'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam']
 
-  # good
+  # best
   menu_item = [
     'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-    'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam'
+    'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
   ]
-
-  # good
-  menu_item =
-    ['Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-     'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam']
-  ```
 
 * <a name="underscores-in-numerics"></a>
   Add underscores to large numeric literals to improve their readability.
@@ -756,26 +728,25 @@ Translations of the guide are available in the following languages:
    ```
 
 * <a name="method-invocation-parens"></a>
-  Use parentheses around the arguments of method invocations,
-  especially if the first argument begins with an open parenthesis `(`,
-  as in `f((3 + 2) + 1)`.
+  Use parentheses around the arguments of method invocations, when including
+  them improves clarity.
 <sup>[[link](#method-invocation-parens)]</sup>
 
   ```ruby
   # bad
-  x = Math.sin y
-  # good
   x = Math.sin(y)
+  # good
+  x = Math.sin y
 
   # bad
-  array.delete e
+  f (3 + 2) + 1
   # good
-  array.delete(e)
+  f((3 + 2) + 1)
 
-  # bad
-  temperance = Person.new 'Temperance', 30
-  # good
-  temperance = Person.new('Temperance', 30)
+  # ok
+  temperance = Person.new 'Temperance', f(30)
+  # ok
+  temperance = Person.new('Temperance', f(30))
   ```
 
   Always omit parentheses for
@@ -1900,6 +1871,9 @@ no parameters.
 
   # good (and a bit more readable)
   Array(paths).each { |path| do_something(path) }
+
+  # when in rails
+  Array.wrap(paths).each { |path| do_something(path) }
   ```
 
 * <a name="ranges-or-between"></a>
@@ -1950,25 +1924,6 @@ no parameters.
   if x == 0
   end
   ```
-
-* <a name="no-non-nil-checks"></a>
-  Don't do explicit non-`nil` checks unless you're dealing with boolean
-  values.
-<sup>[[link](#no-non-nil-checks)]</sup>
-
-    ```ruby
-    # bad
-    do_something if !something.nil?
-    do_something if something != nil
-
-    # good
-    do_something if something
-
-    # good - dealing with a boolean
-    def value_set?
-      !@some_boolean.nil?
-    end
-    ```
 
 * <a name="no-BEGIN-blocks"></a>
   Avoid the use of `BEGIN` blocks.
@@ -2595,6 +2550,8 @@ no parameters.
   classes each in their own file in a folder named like the containing class.
 <sup>[[link](#file-classes)]</sup>
 
+  A notable exception being private classes used to explore a boundary.
+
   ```ruby
   # bad
 
@@ -3031,6 +2988,8 @@ no parameters.
   end
   ```
 
+  In rails, use `alias_method` instead of `alias`.
+
 * <a name="alias-method"></a>
   Always use `alias_method` when aliasing methods of modules, classes, or
   singleton classes at runtime, as the lexical scope of `alias` leads to
@@ -3256,7 +3215,7 @@ no parameters.
     # exception handling
   end
 
-  # good
+  # okish, better to rescue a more specific error
   begin
     # a blind rescue rescues from StandardError, not Exception as many
     # programmers assume.
@@ -3382,18 +3341,11 @@ resource cleanup when possible.
   ```
 
 * <a name="no-trailing-array-commas"></a>
-  Avoid comma after the last item of an `Array` or `Hash` literal, especially
-  when the items are not on separate lines.
+  Avoid comma after the last item of an `Array` or `Hash` when the items are
+  not on separate lines.
 <sup>[[link](#no-trailing-array-commas)]</sup>
 
   ```ruby
-  # bad - easier to move/add/remove items, but still not preferred
-  VALUES = [
-             1001,
-             2020,
-             3333,
-           ]
-
   # bad
   VALUES = [1001, 2020, 3333, ]
 
@@ -3861,6 +3813,8 @@ resource cleanup when possible.
 * <a name="time-now"></a>
   Prefer `Time.now` over `Time.new` when retrieving the current system time.
 <sup>[[link](#time-now)]</sup>
+
+  In rails, use `Time.current` and `Date.current`.
 
 * <a name="no-datetime"></a>
   Don't use `DateTime` unless you need to account for historical calendar
