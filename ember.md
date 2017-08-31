@@ -276,11 +276,12 @@ scan.
 
    The hooks should be chronologically ordered by the order they are invoked in.
 
-7. __Functions__ (`method`)
+7. __Actions__ (`actions`)
+
+8. __Functions__ (`method`)
 
    Public functions first, internal functions after.
 
-8. __Actions__ (`actions`)
 
 ```js
 export default Ember.Component.extend({
@@ -304,6 +305,12 @@ export default Ember.Component.extend({
     // Code
   },
 
+  actions: {
+    someAction() {
+      // Code
+    },
+  },
+
   // Functions
   someFunction() {
     // Code
@@ -311,12 +318,6 @@ export default Ember.Component.extend({
 
   _privateInternalFunction() {
     // Code
-  },
-
-  actions: {
-    someAction() {
-      // Code
-    },
   },
 });
 
