@@ -252,32 +252,41 @@ function _someUtilityFunction() {
 Ordering a module's properties in a predictable manner will make it easier to
 scan.
 
-1. __Plain properties__
+1. __Service Injections__ (`service`)
+
+2. __Plain properties__ (`property`)
 
    Start with properties that configure the module's behavior. Examples are
    `tagName` and `classNames` on components and `queryParams` on controllers and
    routes. Followed by any other simple properties, like default values for properties.
 
-2. __Single line computed property macros__
+3. __Single line computed property macros__ (`single-line-function`)
 
    E.g. `readOnly`, `sort` and other macros. Start with service injections. If the
    module is a model, then `attr` properties should be first, followed by
    `belongsTo` and `hasMany`.
 
-3. __Multi line computed property functions__
+4. __Multi line computed property functions__ (`multi-line-function`)
 
-4. __Lifecycle hooks__
+5. __Observers__ (`observer`)
+
+   We try not to use observers, but if we do, they should go here.
+
+6. __Lifecycle hooks__ (`lifecycle-hooks`),
 
    The hooks should be chronologically ordered by the order they are invoked in.
 
-5. __Functions__
+7. __Functions__ (`method`)
 
    Public functions first, internal functions after.
 
-6. __Actions__
+8. __Actions__ (`actions`)
 
 ```js
 export default Ember.Component.extend({
+  // Service Injections
+  session: inject.service(),
+
   // Plain properties
   tagName: 'span',
 
