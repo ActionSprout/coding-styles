@@ -290,6 +290,7 @@ export default Ember.Component.extend({
 
   // Plain properties
   tagName: 'span',
+  classNames: w('as-button'),
 
   // Single line CP
   post: readOnly('myPost'),
