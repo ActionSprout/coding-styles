@@ -365,7 +365,7 @@ export default DS.Model.extend({
   children: hasMany('child'),
   
   // Properties
-  PeopleAgeBrackets: [
+  peopleAgeBrackets: [
     '18-24',
     '25-34',
     '35-44',
