@@ -362,6 +362,7 @@ export default DS.Model.extend({
   lastName: attr('string'),
 
   // Relationships
+  person: belongsTo('person'),
   children: hasMany('child'),
   
   // Properties
