@@ -341,9 +341,11 @@ order. [Don't Don't Override Init](https://dockyard.com/blog/2015/10/19/2015-don
 
 Models should be grouped as follows:
 
+* Services
 * Attributes
-* Associations
-* Computed Properties
+* Relationships
+* Properties
+* Computed Properties ('single-line-function' should be above 'multi-line-function')
 
 ```js
 // Good
@@ -359,10 +361,23 @@ export default DS.Model.extend({
   firstName: attr('string'),
   lastName: attr('string'),
 
-  // Associations
+  // Relationships
+  person: belongsTo('person'),
   children: hasMany('child'),
+  
+  // Properties
+  peopleAgeBrackets: [
+    '18-24',
+    '25-34',
+    '35-44',
+    '45-54',
+    '55-64',
+    '65+',
+  ],
 
-  // Computed Properties
+  // Computed Properties (single-line functions above multi-line functions)
+  label: computed.readOnly('peopleDetails.label'),
+  
   fullName: computed('firstName', 'lastName', function _fullName() {
     // Code
   }),
