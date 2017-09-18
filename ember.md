@@ -403,6 +403,75 @@ export default DS.Model.extend({
 
 ```
 
+## Routes
+
+### Organization
+
+Routes should be grouped as follows:
+
+* Services
+* Default route's properties
+* Custom properties
+* beforeModel() hook
+* model() hook
+* afterModel() hook
+* Other lifecycle hooks in execution order (serialize, redirect, etc)
+* Actions
+* Custom / private methods
+
+```
+const { Route, inject: { service }, get } = Ember;
+
+export default Route.extend({
+  // 1. Services
+  currentUser: service(),
+
+  // 2. Default route's properties
+  queryParams: {
+    sortBy: { refreshModel: true },
+  },
+
+  // 3. Custom properties
+  customProp: 'test',
+
+  // 4. beforeModel hook
+  beforeModel() {
+    if (!get(this, 'currentUser.isAdmin')) {
+      this.transitionTo('index');
+    }
+  },
+  
+  // 5. model hook
+  model() {
+    return this.store.findAll('article');
+  },
+  
+  // 6. afterModel hook
+  afterModel(articles) {
+    articles.forEach((article) => {
+      article.set('foo', 'bar');
+    });
+  },
+
+  // 7. Other route's methods
+  setupController(controller) {
+    controller.set('foo', 'bar');
+  },
+
+  // 8. All actions
+  actions: {
+    sneakyAction() {
+      return this._secretMethod();
+    },
+  },
+
+  // 9. Custom / private methods
+  _secretMethod() {
+    // custom secret method logic
+  },
+});
+```
+
 ## Controllers
 
 ### Define query params first
