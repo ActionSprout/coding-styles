@@ -549,6 +549,73 @@ this.route('foo', { path: ':fooId' });
 [Example with broken
 links](https://ember-twiddle.com/0fea52795863b88214cb?numColumns=3).
 
+### Organization
+
+Routes should be grouped as follows:
+
+1. Services
+1. Default route's properties
+1. Custom properties
+1. beforeModel() hook
+1. model() hook
+1. afterModel() hook
+1. Other lifecycle hooks in execution order (serialize, redirect, etc)
+1. Actions
+1. Custom / private methods
+
+```
+const { Route, inject: { service }, get } = Ember;
+
+export default Route.extend({
+  // 1. Services
+  currentUser: service(),
+
+  // 2. Default route's properties
+  queryParams: {
+    sortBy: { refreshModel: true },
+  },
+
+  // 3. Custom properties
+  customProp: 'test',
+
+  // 4. beforeModel hook
+  beforeModel() {
+    if (!get(this, 'currentUser.isAdmin')) {
+      this.transitionTo('index');
+    }
+  },
+  
+  // 5. model hook
+  model() {
+    return this.store.findAll('article');
+  },
+  
+  // 6. afterModel hook
+  afterModel(articles) {
+    articles.forEach((article) => {
+      article.set('foo', 'bar');
+    });
+  },
+
+  // 7. Other route's methods
+  setupController(controller) {
+    controller.set('foo', 'bar');
+  },
+
+  // 8. All actions
+  actions: {
+    sneakyAction() {
+      return this._secretMethod();
+    },
+  },
+
+  // 9. Custom / private methods
+  _secretMethod() {
+    // custom secret method logic
+  },
+});
+```
+
 ## Ember Data
 
 ### Be explicit with Ember Data attribute types
