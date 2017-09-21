@@ -553,15 +553,15 @@ links](https://ember-twiddle.com/0fea52795863b88214cb?numColumns=3).
 
 Routes should be grouped as follows:
 
-* Services
-* Default route's properties
-* Custom properties
-* beforeModel() hook
-* model() hook
-* afterModel() hook
-* Other lifecycle hooks in execution order (serialize, redirect, etc)
-* Actions
-* Custom / private methods
+1. Services
+1. Default route's properties
+1. Custom properties
+1. beforeModel() hook
+1. model() hook
+1. afterModel() hook
+1. Other lifecycle hooks in execution order (serialize, redirect, etc)
+1. Actions
+1. Custom / private methods
 
 ```
 const { Route, inject: { service }, get } = Ember;
