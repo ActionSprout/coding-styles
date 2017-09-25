@@ -405,16 +405,26 @@ export default DS.Model.extend({
 
 ## Controllers
 
-### Define query params first
+### Define services first, and then query parameters 
 
-For consistency and ease of discover, list your query params first in
-your controller. These should be listed above default values.
+For consistency and readability in your controller, list your services first, followed by query parameters. These should be listed above default values.
 
 ### Alias your model
 
 It provides a cleaner code to name your model `user` if it is a user. It
 is more maintainable, and will fall in line with future routable
 components
+
+### General Structure for Organization 
+* Services
+* Query params
+* Default controller's properties
+* Custom properties
+* Single line computed properties
+* Multi line computed properties
+* Observers
+* Actions
+* Custom / private methods
 
 ```js
 export default Ember.Controller.extend({
